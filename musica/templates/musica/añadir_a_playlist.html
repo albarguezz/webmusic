@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Añadir Cancion
+{% endblock title %}
+
+{% block content %}
+<h2>Añadir Cancion a playlist</h2>
+<hr>
+
+<div class="row align-items-center mt-4 ">
+   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+      <form method="POST" class="form-example mt-2 " enctype="multipart/form-data" action="">
+         {% csrf_token %}
+         <select name="cars" id="cars" form="carform">
+            {% for playlist in playlists %}
+           
+               <option value="volvo">{{playlist.nombre_playlist}}</option>
+             
+           
+            {% endfor %}
+         </select>  
+         <div class="row mb-3 mt-3">
+            <div class="col-6"><input type="submit" value="Añadir Cancion" id="enviar"
+                  class="btn btn-primary bg-success btn-sm ml-5">
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,116 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{{playlist}}{% endblock %}
+
+
+{% block content %}
+<h2>{{playlist}}</h2>
+<hr />
+<br>
+
+<div class="row">
+   <div class="col-5">
+      <img src="{% if playlist.photo_playlist %}{{ playlist.photo_playlist.url }}{% else %}
+    {% static 'img/playlist.jpg' %}{% endif %}" alt="" width="350px" height="350px" style="margin-left: 30px;">
+   </div>
+
+   <div class="col-6">
+      <h4>Canciones</h4>
+      <hr />
+      <br>
+      <ol id="playlist">
+         
+         {% for cancion in playlist.cancion.all %}
+            <li><a  href="../../../../../{{cancion.get_absolute_url}}">{{cancion}}</a>   <a href="{% url 'musica:eliminar_cancion_playlist' playlist.id cancion.id %}"><svg xmlns="http://www.w3.org/2000/svg"
+               style="color:#dc3545;" width="13" height="13" fill="currentColor"
+               class="bi bi-x-square-fill" viewBox="0 0 16 16">
+               <path
+                   d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
+           </svg></a></li>
+         {% endfor %}
+            
+         
+      </ol>
+      <div class="col-6"  style="color: grey;">
+      <hr>
+      <p>Playlist de {{playlist.usuario}}</p>
+   </div>
+   </div>
+
+   
+</div>
+
+
+{% endblock content %}
+
+
+{% block footer %}
+<audio id="audio" preload="auto" tabindex="0" controls="">
+   <source
+      src="http://127.0.0.1:8000/media/bliding.mp3">
+</audio>
+
+<script>
+
+   init();
+
+   function init() {
+      var audio = document.getElementById('audio');
+      var playlist = document.getElementById('playlist');
+      var tracks = playlist.getElementsByTagName('a');
+      console.log(tracks)
+      audio.volume = 0.10;
+      audio.play();
+
+      //Agregamos los eventos a los links que nos permitirán cambiar de canción
+      for (var track in tracks) {
+         var link = tracks[track];
+         if (typeof link === "function" || typeof link === "number") continue;
+         link.addEventListener('click', function (e) {
+            e.preventDefault();
+            var song = this.getAttribute('href');
+            run(song, audio, this);
+         });
+      }
+      //agregamos evento para reproducir la siguiente canción en la lista
+      //si la canción es la ultima reproducir la primera otra vez
+      audio.addEventListener('ended', function (e) {
+         for (var track in tracks) {
+            var link = tracks[track];
+            var nextTrack = parseInt(track) + 1;
+            if (typeof link === "function" || typeof link === "number") continue;
+            if (!this.src) this.src = tracks[0];
+            if (track == (tracks.length - 1)) nextTrack = 0;
+            console.log(nextTrack);
+            if (link.getAttribute('href') === this.src) {
+               var nextLink = tracks[nextTrack];
+               run(nextLink.getAttribute('href'), audio, nextLink);
+               break;
+            }
+         }
+      });
+   }
+
+   function run(song, audio, link) {
+      var parent = link.parentElement;
+      //quitar el active de todos los elementos de la lista
+      var items = parent.parentElement.getElementsByTagName('li');
+      for (var item in items) {
+         if (items[item].classList)
+            items[item].classList.remove("active");
+      }
+
+      //agregar active a este elemento
+      parent.classList.add("active");
+
+      //tocar la cancion
+      audio.src = song;
+      audio.load();
+      audio.play();
+   }
+
+</script>
+
+{% endblock footer %}
+   

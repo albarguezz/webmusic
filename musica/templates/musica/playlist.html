@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Mis Playlists{% endblock title %}
+
+{% block content %}
+<h2>Mis Playlists</h2>
+<hr>
+<br>
+<div class="row">
+      
+   {% for playlist in page_obj %}
+      {% if playlist.usuario == user %}
+         <div class="card" style="width: 15rem; background-color: transparent; text-align: center; margin-left: 8px;">
+            <a href="{% url 'musica:playlist_detail' playlist.id %}">
+               <img src="{% if playlist.photo_playlist %}{{ playlist.photo_playlist.url }}{% else %}
+               {% static 'img/playlist.jpg' %}{% endif %}" class="card-img-top" alt="..." width="150px" height="150px" style="border-radius: 8px;">
+               <div class="card-body">
+                  <p class="card-text">{{playlist}}</p>
+
+                  <p><a href="{% url 'musica:eliminar_playlist' playlist.id %}"><svg xmlns="http://www.w3.org/2000/svg"
+                           style="color:#dc3545;" width="18" height="18" fill="currentColor" class="bi bi-x-square-fill"
+                           viewBox="0 0 16 16">
+                           <path
+                              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
+                        </svg></a></p>   
+      {% endif %}
+         </a>
+      </div>
+
+   {% endfor %} 
+   <br><br>
+
+   
+<h2>Playlists a seguir</h2>
+<hr>
+<br>
+<div class="row">
+   {% for playlist in page_obj %}
+   {% if playlist.usuario != user %}
+   <div class="card" style="width: 15rem; background-color: transparent; text-align: center; margin-left: 8px;">
+      <a href="{% url 'musica:playlist_detail' playlist.id %}">
+         <img src="{% if playlist.photo_playlist %}{{ playlist.photo_playlist.url }}{% else %}
+               {% static 'img/playlist.jpg' %}{% endif %}" class="card-img-top" alt="...">
+         <div class="card-body">
+            <p class="card-text">{{playlist}}</p>
+            {% else %}
+             
+           
+            {% endif %}
+      </a>
+   </div>
+
+</div>
+<br>
+
+{% endfor %}
+
+</div></div></div>
+{% endblock %}

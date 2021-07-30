@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords"
+		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
+
+	<title>SpotyMusic |
+		{% block title %}{% endblock title %}
+	</title>
+
+	<link href="{% static 'css/app.css' %}" rel="stylesheet">
+	<link href="{% static 'css/contenido.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="{% url 'musica:index' %}">
+					<span class="align-middle"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+							fill="currentColor" class="bi bi-music-player-fill" viewBox="0 0 16 16">
+							<path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+							<path
+								d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm1 2h6a1 1 0 0 1 1 1v2.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm3 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+						</svg></span>
+					SpotyMusic</span>
+				</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Usuario
+					</li>
+
+					<li class="sidebar-item {% if 'dash/' in request.path %}active{% endif %}">
+						<a class="sidebar-link " href="{% url 'musica:index' %}">
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item {% if '/profile' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="{% url 'musica:listar_canciones' %}"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-music-fill"
+							viewBox="0 0 16 16">
+							<path
+								d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM11 6.64v1.75l-2 .5v3.61c0 .495-.301.883-.662 1.123C7.974 13.866 7.499 14 7 14c-.5 0-.974-.134-1.338-.377-.36-.24-.662-.628-.662-1.123s.301-.883.662-1.123C6.026 11.134 6.501 11 7 11c.356 0 .7.068 1 .196V6.89a1 1 0 0 1 .757-.97l1-.25A1 1 0 0 1 11 6.64z" />
+						</svg>
+							 <span class="align-middle">Canciones</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item {% if '/profile' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="{% url 'musica:listar_albumnes' %}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-vinyl-fill"
+								viewBox="0 0 16 16">
+								<path d="M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 3a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0z" />
+							</svg> <span class="align-middle">Albumnes</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item {% if '/profile' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="{% url 'musica:listar_artistas' %}">
+							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Artistas</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						Tu Biblioteca
+					</li>
+					<li class="sidebar-item {% if '/subir' in request.path %}active{% endif %}">
+						<a href="#author" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload"
+								viewBox="0 0 16 16">
+								<path
+									d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+								<path
+									d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+							</svg> <span class="align-middle">Subir
+								Canciones</span>
+						</a>
+						<ul id="author" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'musica:subir_autor' %}">Nuevo Autor</a>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'musica:subir_album' %}">Nuevo Album</a>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'musica:subir_cancion' %}">Nueva Cancion</a>
+							</li>
+
+
+						</ul>
+					</li>
+
+					<!--<li class="sidebar-item {% if '/lista' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="">
+							<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Lista de
+								Canciones</span>
+						</a>
+					</li>-->
+
+					<li class="sidebar-item">
+						<a href="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list"
+								viewBox="0 0 16 16">
+								<path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z" />
+								<path fill-rule="evenodd" d="M12 3v10h-1V3h1z" />
+								<path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z" />
+								<path fill-rule="evenodd"
+									d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
+							</svg> <span class="align-middle">Playlists</span>
+						</a>
+						<ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'musica:crear_playlists' %}">Crear
+									Playlist</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'musica:listar_playlists' %}">Mis Playlists</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="sidebar-item {% if '/mis_canciones' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="{% url 'musica:mis_canciones' %}">
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Mis Canciones</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item {% if '/likes' in request.path %}active{% endif %}">
+						<a class="sidebar-link" href="{% url 'musica:likes' %}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill"
+									viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+								</svg> <span class="align-middle">Mis Likes</span>
+						</a>
+					</li>
+
+				</ul>
+
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-dark navbar-bg bg-dark">
+				<a class="sidebar-toggle d-flex">
+					<i class="hamburger align-self-center"></i>
+				</a>
+
+				<form class="d-none d-sm-inline-block" action="../search/" method="get">
+					{% csrf_token %}
+					<div class="input-group input-group-navbar">
+						<input type="text" class="form-control" name="q" placeholder="Search…" aria-label="Search">
+						<button class="btn" type="button">
+							<i class="align-middle" data-feather="search"></i>
+						</button>
+					</div>
+				</form>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						
+					
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+								<i class="align-middle" data-feather="settings"></i>
+							</a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+									class="bi bi-person-circle" viewBox="0 0 16 16">
+									<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+									<path fill-rule="evenodd"
+										d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+								</svg> <span class="text-muted">{{user}}</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								
+								<a class="dropdown-item" href="{% url 'musica:logout' %}">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+
+			<main class="contenido">
+				{% block content %}
+				{% endblock content %}
+			</main>
+
+			{% block footer %}
+			{% endblock footer %}
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+			<script>
+				var csrftoken = Cookies.get('csrftoken');
+				function csrfSafeMethod(method) {
+					return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
+				$.ajaxSetup({
+					beforeSend: function (xhr, settings) {
+						if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+							xhr.setRequestHeader("X-CSRFToken", csrftoken);
+						}
+					}
+				});
+
+				$(document).ready(function () {
+					{% block domready %}
+					{% endblock %}
+				});
+			</script>
+
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a href="index.html" class="text-muted"><strong>SpotyMusic</strong></a> &copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

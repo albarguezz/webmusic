@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} Mis Likes{% endblock %}
+
+{% block content %}
+
+<h2> Mis likes </h2>
+<hr />
+
+<table class="table" id="cancion-list">
+   <thead>
+      <tr>
+         <th scope="col">Caratula</th>
+         <th scope="col">Titulo</th>
+         <th scope="col">Autor</th>
+         <th scope="col">Album</th>
+         <th scope="col">Genero</th>
+         <th scope="col"></th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for cancion in page_obj %}
+      <!-- Hago un for con todas las canciones que recogo en la views -->
+      <tr>
+         <td><img src="{{cancion.titulo_album.portada.url}}"></td>
+         <td><a href="../../{{cancion.get_absolute_url}}">{{cancion.titulo}}</a></td>
+         <td><a href="../../{{cancion.get_absolute_url}}">{{cancion.nombre_autor}}</a></td>
+         <td><a href="../../{{cancion.get_absolute_url}}">{{cancion.titulo_album.album}}</a></td>
+         <td><a href="../../{{cancion.get_absolute_url}}">{{cancion.genero}}</a></td>
+         <td><a href="{% url 'musica:eliminar_cancion' cancion.id %}"><svg xmlns="http://www.w3.org/2000/svg"
+                  style="color:#dc3545;" width="18" height="18" fill="currentColor" class="bi bi-x-square-fill"
+                  viewBox="0 0 16 16">
+                  <path
+                     d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
+               </svg></a>  <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-music-note-list" viewBox="0 0 16 16">
+                  <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z" />
+                  <path fill-rule="evenodd" d="M12 3v10h-1V3h1z" />
+                  <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z" />
+                  <path fill-rule="evenodd"
+                     d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" />
+               </svg></a></td>
+      </tr> 
+      {% endfor %}
+   </tbody>  
+</table>
+
+{% endblock %}
+
+{% block footer %}
+<p style="text-align: center;">
+   {% if page_obj.has_previous %}
+   <a href="?page=1">&Lang;</a>
+   <a href="?page={{page_obj.previous_page_number}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+         <path
+            d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+      </svg></a>
+   {% endif %}
+
+   pagina {{page_obj.number}} de {{page_obj.paginator.num_pages}}
+
+   {% if page_obj.has_next %}
+   <a href="?page={{page_obj.next_page_number}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+         <path
+            d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+      </svg></a>
+   <a href="?page={{page_obj.paginator.num_pages}}">&Rang;</a>
+   {% endif %}
+
+</p>
+
+{% endblock %}

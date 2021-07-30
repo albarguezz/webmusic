@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} Crear Playlist{% endblock title %}
+
+
+{% block content %}
+<h2>Crear Nueva Playlist</h2>
+
+<hr />
+
+<div class="row align-items-center mt-4 ">
+   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+      <form method="POST" class="form-example mt-2 " enctype="multipart/form-data">
+         {% csrf_token %}
+         {{form.as_p}}
+         <div class="row mb-3 mt-3">
+            <div class="col-6"><input type="submit" value="Crear Nueva Playlist" id="enviar"
+                  class="btn btn-primary btn-sm ml-5">
+            </div>
+            <div class="col-6"><input type="reset" value="Borrar Datos" class="btn btn-primary bg-danger btn-sm">
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+{% endblock content %}

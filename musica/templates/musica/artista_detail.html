@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} {{ artista.autor }} {% endblock %}
+
+{% block content %}
+<h2>{{ artista.autor }}</h2>
+<hr />
+<br>
+
+<div class="row">
+   <div class="col-5">
+      <img src="{{artista.photo.url}}" width="400px" height="400px" alt="">
+   </div>
+
+   <div class="col-6">
+      <h4>Biografia</h4>
+      <hr />
+      <p>{{artista.biografia}}</p>
+      <br>
+
+         <h4>Discografia</h4>
+         <hr />
+         
+         <table class="table table-borderless" id="cancion-list" style="margin-left:10px;">
+            <tbody>
+               {% for album in albumnes %}
+               <!-- Hago un for con todas las canciones que recogo en la views -->
+               <tr >
+                  <td><img src="{{album.portada.url}}"></td>
+                  <td><a href="{% url 'musica:album_detail' album.id %}">{{album.album}}</a></td>
+                  <td><a href="{% url 'musica:album_detail' album.id %}">{{album.año_lanzamineto}}</a></td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+   
+   </div>
+
+</div>
+
+{% endblock %}
